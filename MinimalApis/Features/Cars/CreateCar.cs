@@ -10,7 +10,8 @@ public class CreateCar : IEndpoint
     private async Task<Results<Ok, BadRequest>> CreateCarHandler(
         [FromBody] CreateCarRequest request,
         [FromServices] ApplicationDbContext dbContext, 
-        [FromServices] ILogger<CreateCar> logger)
+        [FromServices] ILogger<CreateCar> logger,
+        CancellationToken cancellationToken)
     {
         try
         {
@@ -20,8 +21,8 @@ public class CreateCar : IEndpoint
                 Model = request.Model
             };
 
-            await dbContext.Cars.AddAsync(car);
-            await dbContext.SaveChangesAsync();
+            await dbContext.Cars.AddAsync(car, cancellationToken);
+            await dbContext.SaveChangesAsync(cancellationToken);
 
             return TypedResults.Ok();
         }
