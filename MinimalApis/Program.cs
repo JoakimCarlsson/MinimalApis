@@ -1,7 +1,14 @@
+using MinimalApis.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<ApplicationDbContext>(x =>
+{
+    x.UseSqlServer(builder.Configuration.GetValue<string>("DbConnection")!);
+});
 
 var app = builder.Build();
 

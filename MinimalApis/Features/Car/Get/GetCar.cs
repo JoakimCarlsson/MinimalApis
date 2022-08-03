@@ -6,6 +6,7 @@ public class GetCar : IEndpoint
     {
         var car = app.MapGroup("/car")
             .WithTags("My Tag")
+            .WithSummary("I am a summary")
             .WithOpenApi();
 
         car.MapGet("/{Id}", GetCarHandler);
