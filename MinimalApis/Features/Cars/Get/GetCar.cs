@@ -1,4 +1,4 @@
-﻿namespace MinimalApis.Features.Car.Get;
+﻿namespace MinimalApis.Features.Cars.Get;
 
 public class GetCar : IEndpoint
 {
