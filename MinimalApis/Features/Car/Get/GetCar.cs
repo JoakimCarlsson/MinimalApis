@@ -4,20 +4,16 @@ public class GetCar : IEndpoint
 {
     public void MapEndpoint(WebApplication app)
     {
-        app.MapGet("/car/{Id}", GetCarHandler)
-            .WithDisplayName("Get Car")
-            .WithName("Car")
-            .WithDescription("Get a car by Id")
-            .WithOpenApi(o =>
-            {
-                o.Description = "Get a car by Id";
-                return o; 
-            });
+        var car = app.MapGroup("/car")
+            .WithTags("My Tag")
+            .WithOpenApi();
 
-        app.MapGet("Cache", () => DateTime.Now)
+        car.MapGet("/{Id}", GetCarHandler);
+
+        car.MapGet("cache", () => DateTime.Now)
             .CacheOutput();
 
-        app.MapGet("NoCache", () => DateTime.Now);
+        car.MapGet("noCache", () => DateTime.Now);
     }
 
     private async Task<Results<NoContent, NotFound, BadRequest, UnauthorizedHttpResult>> GetCarHandler([AsParameters] SearchRequest searchRequest)

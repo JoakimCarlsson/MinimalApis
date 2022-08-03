@@ -13,5 +13,4 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapEndpointsInAssembly(Assembly.GetExecutingAssembly());
-
 app.Run();
