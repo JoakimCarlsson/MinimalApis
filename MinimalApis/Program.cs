@@ -4,6 +4,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDummyApi();
 
+builder.Services.AddTransient<IResultService, ResultService>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(x =>
 {
     x.UseSqlServer(builder.Configuration.GetValue<string>("DbConnection")!);
