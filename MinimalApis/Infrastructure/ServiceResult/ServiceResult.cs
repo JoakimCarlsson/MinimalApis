@@ -1,41 +1,14 @@
 ﻿namespace MinimalApis.Infrastructure.ServiceResult;
 
-public abstract class ServiceResult<T>
+public abstract record ServiceResult<T>
 {
-    public static SuccessServiceResult<T> Success(T entity) => new(entity);
-    public static FailureServiceResult<T> Failure(string message) => new(message);
-    public static NotFoundServiceResult<T> NotFound(string? message) => new(message);
-} 
-
-public class NotFoundServiceResult<T> : ServiceResult<T>
-{
-    public string? Message { get; }
-
-    public NotFoundServiceResult(string? message)
-    {
-        Message = message;
-    }
+    public static SuccessServiceResult<T> Success(T data) => new SuccessServiceResult<T>(data);
+    public static FailureServiceResult<T> Failure(string message) => new FailureServiceResult<T>(message);
+    public static NotFoundServiceResult<T> NotFound(string message) => new NotFoundServiceResult<T>(message);
 }
 
-public class FailureServiceResult<T> : ServiceResult<T>
-{
-    public string Message { get; }
+public record NotFoundServiceResult<T>(string Message) : ServiceResult<T>;
 
-    internal FailureServiceResult(string message)
-    {
-        if (string.IsNullOrWhiteSpace(message))
-            throw new ArgumentNullException(nameof(message), "Message cannot be null or empty when creating a FailureServiceResult");
+public record FailureServiceResult<T>(string Message) : ServiceResult<T>;
 
-        Message = message;
-    }
-}
-
-public class SuccessServiceResult<T> : ServiceResult<T>
-{
-    public T Entity { get; }
-    
-    internal SuccessServiceResult(T entity)
-    {
-        Entity = entity;
-    }
-}
+public record SuccessServiceResult<T>(T Data) : ServiceResult<T>;
