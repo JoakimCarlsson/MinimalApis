@@ -1,9 +1,8 @@
-using MinimalApis.Data;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDummyApi();
 
 builder.Services.AddDbContext<ApplicationDbContext>(x =>
 {

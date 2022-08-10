@@ -5,6 +5,9 @@ global using Microsoft.EntityFrameworkCore;
 
 global using System.Reflection;
 
+global using MinimalApis.TypedHttpClients;
+global using MinimalApis.Services;
+global using MinimalApis.TypedHttpClients.Models;
 global using MinimalApis.Data;
 global using MinimalApis.Data.Entities;
 global using MinimalApis.Infrastructure;
